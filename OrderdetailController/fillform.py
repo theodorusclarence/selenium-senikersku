@@ -11,7 +11,7 @@ class FillFormCheckout(unittest.TestCase):
     def setUp(self):
         #create a chrome session
         self.driver = webdriver.Chrome("./OrderDetailController/chromedriver.exe")
-        # self.driver.maximize_window()
+        self.driver.maximize_window()
         self.driver.get("http://localhost:8000/")
         self.printSetup("Setup Testing ...")
         # declare input fields with correct value 
@@ -37,7 +37,8 @@ class FillFormCheckout(unittest.TestCase):
                 "value" : "60111"
             },
         }
-
+        # navigating to checkout form 
+        self.navigate_checkout_form()
     
     def printSuccess(self, word):
         print('\x1b[6;30;42m' + word + '\x1b[0m')
@@ -121,10 +122,7 @@ class FillFormCheckout(unittest.TestCase):
         print("")
         self.printSetup("Testing checkout form ...")
 
-    def test_empty_value(self):
-        # navigating to checkout form 
-        self.navigate_checkout_form()
-
+    def test_1_empty_value(self):
         # test if there is empty value
         self.printSetup("Test empty value")
         for input_field in self.inputFields:
@@ -132,40 +130,28 @@ class FillFormCheckout(unittest.TestCase):
 
         assert True
 
-    def test_name_value(self):
-        # navigating to checkout form 
-        self.navigate_checkout_form()
-
+    def test_2_name_value(self):
         # test field with forbidden value
         print("")
         self.printSetup("Test name value")
         self.checkValueField(self.inputFields, "name_input", "&864", "Test name field failed : input can contain symbols and number")
         assert True
 
-    def test_email_value(self):
-        # navigating to checkout form 
-        self.navigate_checkout_form()
-
+    def test_3_email_value(self):
         # test field with forbidden value
         print("")
         self.printSetup("Test email value")
         self.checkValueField(self.inputFields, "email_input", "Erki Kadhafi", "Test email field failed : input can contain not valid email format")
         assert True
 
-    def test_phone_value(self):
-        # navigating to checkout form 
-        self.navigate_checkout_form()
-
+    def test_4_phone_value(self):
         # test field with forbidden value
         print("")
         self.printSetup("Test phone value")
         self.checkValueField(self.inputFields, "phone_input", "qwertyuiop&87q2", "Test phone field failed : input can non numeric value")
         assert True
         
-    def test_postalCode_value(self):
-        # navigating to checkout form 
-        self.navigate_checkout_form()
-
+    def test_5_postalCode_value(self):
         # test field with forbidden value
         print("")
         self.printSetup("Test postalCode value")
@@ -174,7 +160,7 @@ class FillFormCheckout(unittest.TestCase):
 
     def tearDown(self):
         self.printSetup("Closing Testing ...")
-        time.sleep(5)
+        # time.sleep(5)
         self.driver.close()
 
 if __name__ == "__main__":
